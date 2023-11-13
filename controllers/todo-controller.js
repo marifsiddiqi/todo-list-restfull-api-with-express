@@ -1,4 +1,4 @@
-const {Todo} = require("../models");
+const { Todo } = require("../models");
 
 module.exports = {
     getAllTodo: async (req, res) => {
@@ -48,12 +48,14 @@ module.exports = {
 
         try {
             // input data
-            await Todo.create(data)
+            if (data.value) {
+                await Todo.create(data)
 
-            // send response
-            res.status(201).json({
-                message: "berhasil menambahkan todo"
-            })
+                // send response
+                return res.status(201).json({
+                    message: "berhasil menambahkan todo"
+                })
+            }
 
         } catch (error) {
             res.json({
