@@ -23,11 +23,22 @@ const verifyToken = (req, res, next) => {
         return
     }
 
-    const payload = jwt.verify(token, KEY)
+    try {
+        // Verifikasi token dan ekstrak informasi pengguna
+        const payload = jwt.verify(token, KEY)
 
-    req.payload = payload
+        // Set informasi pengguna di objek permintaan (request)
+        req.payload = payload
+        console.log(req.payload)
 
-    next()
+        // Lanjutkan ke middleware atau penanganan rute berikutnya
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(403).json({
+            message: "Token tidak valid"
+        });
+    }
 }
 
 module.exports = verifyToken

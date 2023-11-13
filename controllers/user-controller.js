@@ -12,8 +12,30 @@ module.exports = {
         })
     },
 
-    getUserById: (req, res) => {
+    getUserById: async (req, res) => {
+        const userId = req.params.id
 
+        try {
+            // Temukan user berdasarkan ID
+            const user = await User.findByPk(userId, { include: Todo });
+
+            if (!user) {
+                return res.status(404).json({
+                    message: 'User tidak ditemukan'
+                });
+            }
+
+            res.status(200).json({
+                message: 'Berhasil mendapatkan user',
+                data: user
+            });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                message: 'Terjadi kesalahan server'
+            });
+        }
     },
 
     createUser: async (req, res) => {

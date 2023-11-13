@@ -23,7 +23,7 @@ route.post('/login', async (req, res) => {
         }
 
         if (bcrypt.compareSync(data.password, user.password)) {
-            const token = jwt.sign({ email: data.email }, "lashfdalkdhqweioho9472038as", { expiresIn: '1h'})
+            const token = jwt.sign({ id: user.id, email: data.email }, "lashfdalkdhqweioho9472038as")
             return res.json({
                 message: "anda berhasil login",
                 token

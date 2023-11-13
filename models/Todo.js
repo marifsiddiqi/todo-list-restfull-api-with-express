@@ -10,9 +10,9 @@ const Todo = sequelize.define(
             allowNull: false,
         },
         status: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: false
+            defaultValue: "active"
         },
         user_id: {
             type: DataTypes.INTEGER,
