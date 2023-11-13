@@ -1,31 +1,23 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
-const User = require("./User");
+'use strict';
 
-const Todo = sequelize.define(
-    "todo",
-    {
-        value: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        status: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: "active"
-        },
-        user_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        }
-    },
-    {
-        // freezeTableName: true,
-        // timestamps: false
-        // underscored: true
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Todo extends Model {
+    static associate(models) {
+      // define association here
+      Todo.belongsTo(models.User, {foreignKey: 'user_id'})
     }
-);
+  }
+  Todo.init({
+    value: DataTypes.STRING,
+    status: DataTypes.STRING,
+    user_id: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Todo',
+  });
 
-// Todo.belongsTo(User,  { foreignKey: 'user_id'})
-
-module.exports = Todo;
+  return Todo;
+};

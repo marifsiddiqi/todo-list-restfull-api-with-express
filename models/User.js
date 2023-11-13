@@ -1,30 +1,29 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
-const Todo = require("./Todo");
+'use strict';
 
-const User = sequelize.define(
-    "user",
-    {
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        address: DataTypes.STRING,
-    },
-    {
-        // freezeTableName: true,
-        // timestamps: false
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      User.hasMany(models.Todo, {foreignKey: 'user_id'})
     }
-);
+  }
+  User.init({
+    name: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    address: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
 
-User.hasMany(Todo, { foreignKey: 'user_id' })
-
-module.exports = User;
+  return User;
+};
