@@ -13,7 +13,6 @@ route.get('/', (req, res) => {
 
 route.use('/auth', authRoutes)
 route.use("/todos", verifyToken, todoRoute)
-// route.use("/user", verifyToken, userRoute)
-route.use("/user", userRoute)
+route.use("/user", verifyToken, userRoute)
 
 module.exports = route

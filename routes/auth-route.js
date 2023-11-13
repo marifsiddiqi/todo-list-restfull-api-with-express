@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const route = express.Router()
 
-const User = require("../models/User")
+const {User} = require("../models")
 
 route.post('/login', async (req, res) => {
     try {
