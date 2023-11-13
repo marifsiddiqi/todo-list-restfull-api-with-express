@@ -1,6 +1,6 @@
 # todo-list-restfull-api-with-express
 
-Database using https://freedb.tech
+Database mysql using https://freedb.tech
 
 Deploy Express using https://www.cyclic.sh/
 
