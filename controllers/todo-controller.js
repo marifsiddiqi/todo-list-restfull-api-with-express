@@ -52,8 +52,12 @@ module.exports = {
                 await Todo.create(data)
 
                 // send response
-                return res.status(201).json({
+                res.status(201).json({
                     message: "berhasil menambahkan todo"
+                })
+            }else{
+                res.json({
+                    message: "gagal menambahkan todo karena nilai value tidak ada",
                 })
             }
 
