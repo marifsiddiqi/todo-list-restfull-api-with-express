@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-
-const KEY = "lashfdalkdhqweioho9472038as"
+require('dotenv').config()
 
 const verifyToken = (req, res, next) => {
     const header = req.headers.authorization
@@ -25,7 +24,7 @@ const verifyToken = (req, res, next) => {
 
     try {
         // Verifikasi token dan ekstrak informasi pengguna
-        const payload = jwt.verify(token, KEY)
+        const payload = jwt.verify(token, process.env.JWT_KEY)
 
         // Set informasi pengguna di objek permintaan (request)
         req.payload = payload

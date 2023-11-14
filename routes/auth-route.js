@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+require('dotenv').config()
+
 const route = express.Router()
 
 const {User} = require("../models")
@@ -23,7 +25,7 @@ route.post('/login', async (req, res) => {
         }
 
         if (bcrypt.compareSync(data.password, user.password)) {
-            const token = jwt.sign({ id: user.id, email: data.email }, "lashfdalkdhqweioho9472038as")
+            const token = jwt.sign({ id: user.id, email: data.email }, process.env.JWT_KEY)
             return res.json({
                 message: "anda berhasil login",
                 token
